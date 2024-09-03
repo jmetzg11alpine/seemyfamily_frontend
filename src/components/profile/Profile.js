@@ -1,18 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Row, Col, Image, Table, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Image, Table, Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import {
-  setProfileData,
-  setAddRelativeModal,
-  setEditDetailsModal,
-  setProfileId,
-} from '../../dataSlice';
+import { setAddRelativeModal, setEditDetailsModal, setProfileId } from '../../dataSlice';
 import { ClickableRow } from '../home/Home';
 import { getProfileData } from './helpers';
 import AddRelativeModal from './AddRelativeModal';
 import EditDetailsModal from './EditDetailsModal';
-const url = process.env.REACT_APP_API;
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -27,7 +21,7 @@ const Profile = () => {
 
   useEffect(() => {
     getProfileData(dispatch, profileId);
-  }, [profileId]);
+  }, [profileId, dispatch]);
 
   const rowClicked = (id) => dispatch(setProfileId(id));
 
@@ -39,10 +33,10 @@ const Profile = () => {
           <h3 className='mt-3'>{data.name}</h3>
         </Col>
         <Col>
-          <h4>Bio (not clearning for new people)</h4>
-          <Form.Group controlId='profileBio'>
-            <Form.Control as='textarea' rows={5} value={data.bio} readOnly />
-          </Form.Group>
+          <div className='mt-3'>
+            <h5>Bio</h5>
+            <p>{data.bio}</p>
+          </div>
           <div className='mt-4'>
             <h5>Basic Info</h5>
             <p>

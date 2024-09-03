@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAddRelativeModal } from '../../dataSlice';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
@@ -8,9 +9,11 @@ const AddRelativeModal = ({ name }) => {
   const dispatch = useDispatch();
   const showModal = useSelector((state) => state.data.addRelativeModal);
   const profileId = useSelector((state) => state.data.profileId);
+  const [location, setLocation] = useState('');
 
   const handleClose = () => {
     dispatch(setAddRelativeModal(false));
+    setLocation('');
   };
 
   const handleSubmit = async (event) => {
@@ -20,9 +23,12 @@ const AddRelativeModal = ({ name }) => {
       profileId: profileId,
       name: event.target.name.value,
       relation: event.target.relation.value,
-      location: event.target.location.value,
+      location: location,
       lat: event.target.lat.value,
       lng: event.target.lng.value,
+      birthplace: event.target.birthplace,
+      birthdate: event.target.birthdate,
+      bio: event.target.bio,
     };
 
     const data = new FormData();
@@ -77,39 +83,44 @@ const AddRelativeModal = ({ name }) => {
             <Col md={6}>
               <Form.Group className='mb-3' controlId='location'>
                 <Form.Label>Current Location</Form.Label>
-                <Form.Control type='text' placeholder='Enter Current location' />
+                <Form.Control
+                  type='text'
+                  placeholder='Enter Current location'
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
               </Form.Group>
             </Col>
             <Col md={3}>
               <Form.Group className='mb-3' controlId='lat'>
                 <Form.Label>Lat</Form.Label>
-                <Form.Control type='number' />
+                <Form.Control type='number' step='any' disabled={!location} />
               </Form.Group>
             </Col>
             <Col md={3}>
               <Form.Group className='mb-3' controlId='lng'>
                 <Form.Label>Lng</Form.Label>
-                <Form.Control type='number' />
+                <Form.Control type='number' step='any' disabled={!location} />
               </Form.Group>
             </Col>
           </Row>
 
           <Row>
             <Col md={6}>
-              <Form.Group className='mb-3'>
+              <Form.Group className='mb-3' controlId='birthplace'>
                 <Form.Label>Birth Place</Form.Label>
                 <Form.Control type='text' placeholder='Enter birth place' />
               </Form.Group>
             </Col>
             <Col md={6}>
-              <Form.Group className='mb-3'>
+              <Form.Group className='mb-3' contolrId='birthdate'>
                 <Form.Label>Birth Date</Form.Label>
                 <Form.Control type='date' placeholder='Enter birth date' />
               </Form.Group>
             </Col>
           </Row>
 
-          <Form.Group className='mb-3'>
+          <Form.Group className='mb-3' controlId='bio'>
             <Form.Label>Bio</Form.Label>
             <Form.Control as='textarea' rows={3} />
           </Form.Group>
