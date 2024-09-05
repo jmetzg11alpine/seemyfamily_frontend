@@ -23,7 +23,10 @@ const Profile = () => {
     getProfileData(dispatch, profileId);
   }, [profileId, dispatch]);
 
-  const rowClicked = (id) => dispatch(setProfileId(id));
+  const rowClicked = (id) => {
+    getProfileData(dispatch, id);
+    dispatch(setProfileId(id));
+  };
 
   return (
     <StyledContainer fluid>
@@ -90,7 +93,7 @@ const Profile = () => {
         </Col>
       </Row>
       <AddRelativeModal name={data.name} />
-      <EditDetailsModal />
+      <EditDetailsModal name={data.name} />
     </StyledContainer>
   );
 };

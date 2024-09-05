@@ -1,30 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEditDetailsModal } from '../../dataSlice';
 import { Modal, Button, Form, Row, Col, Table } from 'react-bootstrap';
-import { getProfileData } from './helpers';
+import {
+  getProfileData,
+  getRelations,
+  postProfileEdits,
+  relationOptions,
+} from './helpers';
 import Select from 'react-select';
 
-const EditDetailsModal = () => {
+const EditDetailsModal = ({ name }) => {
   const dispatch = useDispatch();
   const profileId = useSelector((state) => state.data.profileId);
   const showModal = useSelector((state) => state.data.editDetailsModal);
-  const initialProfileDate = useSelector((state) => state.data.profileData);
-  const [profileData, setProfileData] = useState(initialProfileDate);
-  const options = [
-    { value: 'john', label: 'John' },
-    { value: 'jane', label: 'Jane' },
-    { value: 'doe', label: 'Doe' },
-  ];
-  const relationOptions = [
-    { value: 'Parent', label: 'Parent' },
-    { value: 'Sibling', label: 'Sibling' },
-    { value: 'Child', label: 'Child' },
-    { value: 'Spouse', label: 'Spouse' },
-  ];
-  const [selectedName, setSelectedName] = useState(null);
-  const [selectedRelation, setSelectedRelation] = useState(null);
-  console.log(profileData);
+  const initialProfileData = useSelector((state) => state.data.profileData);
+  const [profileData, setProfileData] = useState({});
+  const [possibleRelatives, setPossibleRelatives] = useState([]);
+  const [clickedRemoveId, setClickRemoveId] = useState(null);
+
+  useEffect(() => {
+    if (profileId) {
+      getRelations(profileId, setPossibleRelatives);
+    }
+    setProfileData(initialProfileData);
+  }, [profileId, initialProfileData, showModal]);
+
+  const handleClose = () => {
+    dispatch(setEditDetailsModal(false));
+    setPossibleRelatives([]);
+  };
 
   const handleChange = (key, value) => {
     setProfileData((prev) => ({
@@ -33,19 +38,21 @@ const EditDetailsModal = () => {
     }));
   };
 
+  const handleRemoveClick = (id) => {
+    setClickRemoveId(id);
+    handleChange('relation_remove', id);
+  };
+
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    postProfileEdits(profileData);
 
     handleClose();
     getProfileData(dispatch, profileId);
   };
 
-  const handleClose = () => {
-    dispatch(setEditDetailsModal(false));
-  };
   return (
     <Modal show={showModal} size='lg'>
-      <Modal.Title className='p-3'>Edit {profileData.name}</Modal.Title>
+      <Modal.Title className='p-3'>Edit {name}</Modal.Title>
       <Modal.Body>
         <Row>
           <Col md={6}>
@@ -144,9 +151,9 @@ const EditDetailsModal = () => {
                 </td>
                 <td>
                   <Select
-                    options={options}
-                    value={selectedName}
-                    onChange={(option) => setSelectedName(option)}
+                    options={possibleRelatives}
+                    value={profileData.person_add || null}
+                    onChange={(option) => handleChange('person_add', option)}
                     isSearchable={true}
                     placeholder='Search...'
                   />
@@ -154,8 +161,8 @@ const EditDetailsModal = () => {
                 <td>
                   <Select
                     options={relationOptions}
-                    value={selectedRelation}
-                    onChange={(option) => setSelectedRelation(option)}
+                    value={profileData.relation_add || null}
+                    onChange={(option) => handleChange('relation_add', option)}
                   />
                 </td>
               </tr>
@@ -163,11 +170,16 @@ const EditDetailsModal = () => {
                 profileData.relations.map((person, index) => (
                   <tr key={index}>
                     <td>
-                      <Button variant='danger' size='sm'>
+                      <Button
+                        variant={clickedRemoveId === person.id ? 'danger' : 'warning'}
+                        size='sm'
+                        onClick={() => handleRemoveClick(person.id)}
+                        disabled={clickedRemoveId === person.id}
+                      >
                         Remove
                       </Button>
                     </td>
-                    <td>{person.name}</td>
+                    <td> {person.name}</td>
                     <td>{person.relation}</td>
                   </tr>
                 ))}
