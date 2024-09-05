@@ -12,9 +12,11 @@ const Profile = () => {
   const dispatch = useDispatch();
   const profileId = useSelector((state) => state.data.profileId);
   const data = useSelector((state) => state.data.profileData);
+
   const addRelative = () => {
     dispatch(setAddRelativeModal(true));
   };
+
   const editDetails = () => {
     dispatch(setEditDetailsModal(true));
   };
@@ -43,11 +45,15 @@ const Profile = () => {
           <div className='mt-4'>
             <h5>Basic Info</h5>
             <p>
-              <strong>BirthPlace</strong>
+              <strong>Location </strong>
+              {data.location}
+            </p>
+            <p>
+              <strong>BirthPlace </strong>
               {data.birthplace}
             </p>
             <p>
-              <strong>BirthDate</strong>
+              <strong>BirthDate </strong>
               {data.birthdate}
             </p>
           </div>

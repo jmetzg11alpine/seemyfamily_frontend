@@ -42,7 +42,7 @@ export const postProfileEdits = async (profileData) => {
   const response = await fetch(url + '/update_details', {
     method: 'POST',
     headers: {
-      'Content-Type': 'applicatioin/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ profileData }),
   });

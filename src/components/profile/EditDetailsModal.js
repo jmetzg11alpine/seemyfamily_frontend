@@ -29,6 +29,7 @@ const EditDetailsModal = ({ name }) => {
   const handleClose = () => {
     dispatch(setEditDetailsModal(false));
     setPossibleRelatives([]);
+    setClickRemoveId(null);
   };
 
   const handleChange = (key, value) => {
@@ -43,8 +44,8 @@ const EditDetailsModal = ({ name }) => {
     handleChange('relation_remove', id);
   };
 
-  const handleSubmit = async (event) => {
-    postProfileEdits(profileData);
+  const handleSubmit = async () => {
+    await postProfileEdits(profileData);
 
     handleClose();
     getProfileData(dispatch, profileId);
@@ -76,7 +77,7 @@ const EditDetailsModal = ({ name }) => {
                 />
               </Form.Group>
             </Row>
-            <Row>
+            <Row className='mb-3'>
               <Form.Group>
                 <Form.Label>Birth Date</Form.Label>
                 <Form.Control

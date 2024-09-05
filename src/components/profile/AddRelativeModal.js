@@ -33,10 +33,10 @@ const AddRelativeModal = ({ name }) => {
     setNewProfile({});
   };
 
-  const handleSubmit = () => {
-    addRelative(newProfile);
+  const handleSubmit = async () => {
+    await addRelative(newProfile);
+    await getProfileData(dispatch, profileId);
     handleClose();
-    getProfileData(dispatch, profileId);
   };
 
   return (

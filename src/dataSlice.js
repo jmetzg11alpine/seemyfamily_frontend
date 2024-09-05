@@ -21,7 +21,7 @@ export const dataSlice = createSlice({
       state.profileId = action.payload;
     },
     setProfileData: (state, action) => {
-      state.profileData = action.payload;
+      state.profileData = { ...action.payload };
     },
     setAddRelativeModal: (state, action) => {
       state.addRelativeModal = action.payload;
