@@ -47,6 +47,11 @@ const Home = () => {
               Name{getSortIndicator('name', sortConfig)}
             </SortableTh>
             <SortableTh
+              onClick={() => requestSort('location__name', sortConfig, setSortConfig)}
+            >
+              Location{getSortIndicator('location__name', sortConfig)}
+            </SortableTh>
+            <SortableTh
               onClick={() => requestSort('birthdate', sortConfig, setSortConfig)}
             >
               Birth Date{getSortIndicator('birthdate', sortConfig)}
@@ -63,6 +68,7 @@ const Home = () => {
             sortedData.map((item) => (
               <ClickableRow onClick={() => rowClicked(item.id)} key={item.id}>
                 <td>{item.name}</td>
+                <td>{item.location__name}</td>
                 <td>{item.birthdate}</td>
                 <td>{item.birthplace}</td>
               </ClickableRow>

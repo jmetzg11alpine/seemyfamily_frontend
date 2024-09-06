@@ -65,7 +65,7 @@ const Profile = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Relations</th>
+                <th>Relation</th>
                 <th>Name</th>
               </tr>
             </thead>

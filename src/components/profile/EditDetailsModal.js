@@ -46,7 +46,6 @@ const EditDetailsModal = ({ name }) => {
 
   const handleSubmit = async () => {
     await postProfileEdits(profileData);
-
     handleClose();
     getProfileData(dispatch, profileId);
   };
@@ -104,6 +103,7 @@ const EditDetailsModal = ({ name }) => {
                   <Form.Control
                     type='number'
                     step='any'
+                    value={profileData.lat}
                     disabled={!profileData.location}
                     onChange={(e) => handleChange('lat', e.target.value)}
                   />
@@ -115,6 +115,7 @@ const EditDetailsModal = ({ name }) => {
                   <Form.Control
                     type='number'
                     step='any'
+                    value={profileData.lng}
                     disabled={!profileData.location}
                     onChange={(e) => handleChange('lng', e.target.value)}
                   />
