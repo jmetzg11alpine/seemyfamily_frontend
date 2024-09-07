@@ -16,6 +16,20 @@ const AddRelativeModal = ({ name }) => {
     handleChange('location', location);
   };
 
+  const handelePhotoUpload = (event) => {
+    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const file = event.target.files[0];
+    if (file && allowedFileTypes.includes(file.type)) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        handleChange('photo_base64', reader.result);
+      };
+    } else {
+      alert('Please upload a valid image file (JPEG, PNG, GIF)');
+    }
+  };
+
   const handleChange = (key, value) => {
     setNewProfile((prev) => ({
       ...prev,
@@ -40,7 +54,7 @@ const AddRelativeModal = ({ name }) => {
   };
 
   return (
-    <Modal show={showModal} onHide={handleClose} size='lg'>
+    <Modal show={showModal} size='lg'>
       <Modal.Header closeButton>
         <Modal.Title>Add New Relative to {name}</Modal.Title>
       </Modal.Header>
@@ -145,7 +159,7 @@ const AddRelativeModal = ({ name }) => {
           </Form.Group>
           <Form.Group className='mb-3'>
             <Form.Label>Profile Photo</Form.Label>
-            <Form.Control type='file' />
+            <Form.Control type='file' accept='image/*' onChange={handelePhotoUpload} />
           </Form.Group>
         </Form>
       </Modal.Body>

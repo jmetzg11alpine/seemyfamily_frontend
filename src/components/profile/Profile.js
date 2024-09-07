@@ -34,7 +34,7 @@ const Profile = () => {
     <StyledContainer fluid>
       <Row className='pt-4'>
         <Col xs={12} md={4} className='text-center'>
-          <Image roudedCircle fluid />
+          <Image roudedCircle fluid src={`data:image/jpeg;base64,${data.photo}`} />
           <h3 className='mt-3'>{data.name}</h3>
         </Col>
         <Col>
