@@ -1,17 +1,23 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Row, Col, Image, Table, Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import { setAddRelativeModal, setEditDetailsModal, setProfileId } from '../../dataSlice';
+import {
+  setAddRelativeModal,
+  setEditDetailsModal,
+  setProfileId,
+  setPhotoModal,
+} from '../../dataSlice';
 import { ClickableRow } from '../home/Home';
 import { getProfileData } from './helpers';
+import { url } from '../../apiRequest';
 import AddRelativeModal from './AddRelativeModal';
 import EditDetailsModal from './EditDetailsModal';
+import PhotoModal from './PhotoModal';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const profileId = useSelector((state) => state.data.profileId);
   const data = useSelector((state) => state.data.profileData);
+  console.log(data);
 
   const addRelative = () => {
     dispatch(setAddRelativeModal(true));
@@ -21,9 +27,9 @@ const Profile = () => {
     dispatch(setEditDetailsModal(true));
   };
 
-  useEffect(() => {
-    getProfileData(dispatch, profileId);
-  }, [profileId, dispatch]);
+  const viewPhotos = () => {
+    dispatch(setPhotoModal(true));
+  };
 
   const rowClicked = (id) => {
     getProfileData(dispatch, id);
@@ -34,7 +40,13 @@ const Profile = () => {
     <StyledContainer fluid>
       <Row className='pt-4'>
         <Col xs={12} md={4} className='text-center'>
-          <Image roudedCircle fluid src={`data:image/jpeg;base64,${data.photo}`} />
+          <Image
+            roundedCircle
+            fluid
+            src={`${url.replace('/api', '')}${data.photo}`}
+            style={{ cursor: 'pointer' }}
+            onClick={viewPhotos}
+          />
           <h3 className='mt-3'>{data.name}</h3>
         </Col>
         <Col>
@@ -100,6 +112,7 @@ const Profile = () => {
       </Row>
       <AddRelativeModal name={data.name} />
       <EditDetailsModal name={data.name} />
+      <PhotoModal name={data.name} />
     </StyledContainer>
   );
 };

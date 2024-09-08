@@ -5,6 +5,7 @@ import { setMainData, setProfileId } from '../../dataSlice';
 import { Table } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { getProfileData } from '../profile/helpers';
 
 const Home = () => {
   const data = useSelector((state) => state.data.mainData);
@@ -18,7 +19,7 @@ const Home = () => {
       dispatch(setMainData(results.data));
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const sortedData =
     data && data.length > 0
@@ -36,6 +37,7 @@ const Home = () => {
   const rowClicked = (id) => {
     navigate('/profile');
     dispatch(setProfileId(id));
+    getProfileData(dispatch, id);
   };
 
   return (

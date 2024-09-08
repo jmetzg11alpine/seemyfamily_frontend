@@ -55,7 +55,7 @@ const AddRelativeModal = ({ name }) => {
 
   return (
     <Modal show={showModal} size='lg'>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>Add New Relative to {name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -164,7 +164,11 @@ const AddRelativeModal = ({ name }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-between'>
-        <Button variant='primary' onClick={handleSubmit}>
+        <Button
+          variant='primary'
+          onClick={handleSubmit}
+          disabled={!newProfile.name || !newProfile.relation}
+        >
           Submit
         </Button>
         <Button variant='secondary' onClick={handleClose}>

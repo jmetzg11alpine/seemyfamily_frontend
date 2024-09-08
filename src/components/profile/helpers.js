@@ -1,53 +1,31 @@
-import { setProfileData } from '../../dataSlice';
-const url = process.env.REACT_APP_API;
+import { setProfileData, setPhotos } from '../../dataSlice';
+import { apiRequest } from '../../apiRequest';
 
 export const getProfileData = async (dispatch, profileId) => {
-  const response = await fetch(url + '/get_profile_data', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id: profileId }),
-  });
-  const data = await response.json();
+  const data = await apiRequest('/get_profile_data', { id: profileId });
   dispatch(setProfileData(data.profile_data));
 };
 
 export const addRelative = async (newProfile) => {
-  const response = await fetch(url + '/add_relative', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ newProfile }),
-  });
-  const data = await response.json();
-  console.log(data.message);
+  apiRequest('/add_relative', { newProfile });
 };
 
 export const getRelations = async (profileId, setPossibleRelatives) => {
-  const response = await fetch(url + '/get_all_relatives', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ id: profileId }),
-  });
-  const data = await response.json();
+  const data = await apiRequest('/get_all_relatives', { id: profileId });
   setPossibleRelatives(data.relative_options);
 };
 
 export const postProfileEdits = async (profileData) => {
-  console.log(profileData);
-  const response = await fetch(url + '/update_details', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ profileData }),
-  });
-  const data = await response.json();
-  console.log(data.message);
+  apiRequest('/update_details', { profileData });
+};
+
+export const uploadPhoto = async (data) => {
+  apiRequest('/upload_photo', data);
+};
+
+export const getPhotos = async (profileId, setPhotos) => {
+  const response = await apiRequest('/get_photos', { profileId });
+  setPhotos(response.photos);
 };
 
 export const relationOptions = [

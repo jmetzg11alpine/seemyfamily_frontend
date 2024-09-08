@@ -20,7 +20,7 @@ const EditDetailsModal = ({ name }) => {
   const [clickedRemoveId, setClickRemoveId] = useState(null);
 
   useEffect(() => {
-    if (profileId) {
+    if (profileId && showModal) {
       getRelations(profileId, setPossibleRelatives);
     }
     setProfileData(initialProfileData);

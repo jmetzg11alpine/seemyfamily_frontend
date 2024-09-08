@@ -9,6 +9,7 @@ export const dataSlice = createSlice({
     profileData: {},
     addRelativeModal: false,
     editDetailsModal: false,
+    photoModal: false,
   },
   reducers: {
     addValue: (state) => {
@@ -29,6 +30,9 @@ export const dataSlice = createSlice({
     setEditDetailsModal: (state, action) => {
       state.editDetailsModal = action.payload;
     },
+    setPhotoModal: (state, action) => {
+      state.photoModal = action.payload;
+    },
   },
 });
 
@@ -39,6 +43,7 @@ export const {
   setProfileData,
   setAddRelativeModal,
   setEditDetailsModal,
+  setPhotoModal,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
