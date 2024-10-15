@@ -2,3 +2,11 @@
 package-lock.json
 
 build/
+
+notes.txt
+
+.env.production
+
+fly.toml
+
+nginx.conf
