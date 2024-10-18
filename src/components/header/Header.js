@@ -1,6 +1,8 @@
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar, Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import LoggedIn from './LoggedIn';
 
 const Header = () => {
   return (
@@ -18,7 +20,7 @@ const Header = () => {
           </Nav.Link>
         </Nav>
         <Nav className='ms-auto'>
-          <Navbar.Text>Signed in as: John</Navbar.Text>
+          <LoggedIn />
         </Nav>
       </Container>
     </Navbar>

@@ -10,6 +10,8 @@ export const dataSlice = createSlice({
     addRelativeModal: false,
     editDetailsModal: false,
     photoModal: false,
+    loggedIn: false,
+    userName: '',
   },
   reducers: {
     addValue: (state) => {
@@ -33,6 +35,12 @@ export const dataSlice = createSlice({
     setPhotoModal: (state, action) => {
       state.photoModal = action.payload;
     },
+    setLoggedIn: (state, action) => {
+      state.loggedIn = action.payload;
+    },
+    setUserName: (state, action) => {
+      state.userName = action.payload;
+    },
   },
 });
 
@@ -44,6 +52,8 @@ export const {
   setAddRelativeModal,
   setEditDetailsModal,
   setPhotoModal,
+  setLoggedIn,
+  setUserName,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
