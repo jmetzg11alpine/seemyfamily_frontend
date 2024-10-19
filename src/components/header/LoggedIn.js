@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { logIn, logOut } from './helpers';
-import { setLoggedIn, setUserName } from '../../dataSlice';
 
 const LogInModal = ({
   showModal,
@@ -14,7 +13,6 @@ const LogInModal = ({
   const [mainBody, setMainBody] = useState(true);
   const handleLogin = async () => {
     const resp = await logIn(credentials, dispatch, setMainBody);
-    console.log(resp);
     if (resp === 'close') {
       handleCancel();
     }
@@ -22,7 +20,7 @@ const LogInModal = ({
 
   const handleCancel = () => {
     setShowModal(false);
-    setCredentials({});
+    setCredentials({ username: '', password: '' });
     setMainBody(true);
   };
   return (
@@ -86,7 +84,7 @@ const LoggedIn = () => {
   const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.data.loggedIn);
   const [showModal, setShowModal] = useState(false);
-  const [credentials, setCredentials] = useState({});
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
 
   const handleLogIn = () => {
     setShowModal(true);

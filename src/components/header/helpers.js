@@ -3,15 +3,7 @@ import { setLoggedIn, setUserName } from '../../dataSlice';
 export const url = process.env.REACT_APP_API;
 
 export const logIn = async (credentials, dispatch, setMainBody) => {
-  const response = await fetch(url + '/custom_login/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  });
-  const resp = await response.json();
-
+  const resp = await apiRequest('/custom_login/', credentials);
   if (resp.message === 'Invalid credentials') {
     setMainBody(false);
     return 'continue';

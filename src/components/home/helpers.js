@@ -2,7 +2,6 @@ export const getData = async () => {
   const url = process.env.REACT_APP_API;
   const response = await fetch(url + '/get_main_data/');
   const rsp = await response.json();
-  console.log(rsp);
   return rsp;
 };
 
