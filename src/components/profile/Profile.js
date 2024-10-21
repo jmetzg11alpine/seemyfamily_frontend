@@ -9,15 +9,14 @@ import {
 } from '../../dataSlice';
 import { ClickableRow } from '../home/Home';
 import { getProfileData } from './helpers';
-import { url } from '../../apiRequest';
 import AddRelativeModal from './AddRelativeModal';
 import EditDetailsModal from './EditDetailsModal';
-import PhotoModal from './PhotoModal';
+import PhotoModal from '../photos/PhotoModal';
+import { urlMedia } from '../../apiRequest';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.profileData);
-  console.log(data);
 
   const addRelative = () => {
     dispatch(setAddRelativeModal(true));
@@ -43,7 +42,7 @@ const Profile = () => {
           <Image
             roundedCircle
             fluid
-            src={`${url.replace('/api', '')}${data.photo}`}
+            src={`${urlMedia}${data.photo}`}
             style={{ cursor: 'pointer' }}
             onClick={viewPhotos}
           />
@@ -83,8 +82,8 @@ const Profile = () => {
             </thead>
             <tbody>
               {data.relations && data.relations.length > 0 ? (
-                data.relations.map((item) => (
-                  <ClickableRow onClick={() => rowClicked(item.id)}>
+                data.relations.map((item, index) => (
+                  <ClickableRow key={index} onClick={() => rowClicked(item.id)}>
                     <td>{item.relation}</td>
                     <td>{item.name}</td>
                   </ClickableRow>

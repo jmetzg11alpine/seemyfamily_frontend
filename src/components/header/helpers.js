@@ -9,7 +9,7 @@ export const logIn = async (credentials, dispatch, setMainBody) => {
     return 'continue';
   } else {
     dispatch(setLoggedIn(true));
-    dispatch(setUserName('donkey'));
+    dispatch(setUserName(resp.user_name));
     localStorage.setItem('accessToken', resp.access);
     localStorage.setItem('refreshToken', resp.refresh);
     return 'close';

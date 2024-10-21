@@ -2,6 +2,51 @@ import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { logIn, logOut } from './helpers';
+import styled from 'styled-components';
+
+const LoggedIn = () => {
+  const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.data.loggedIn);
+  const userName = useSelector((state) => state.data.userName);
+  const [showModal, setShowModal] = useState(false);
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
+
+  const handleLogIn = () => {
+    setShowModal(true);
+  };
+
+  const handleLogOut = () => {
+    logOut(dispatch);
+  };
+
+  return (
+    <>
+      {loggedIn ? (
+        <div>
+          <span className='me-3'> Welcome {userName}</span>
+
+          <Button variant='light' size='sm' onClick={handleLogOut}>
+            Log Out
+          </Button>
+        </div>
+      ) : (
+        <div>
+          <Button variant='light' size='sm' onClick={handleLogIn}>
+            Log In
+          </Button>
+        </div>
+      )}
+      <LogInModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        credentials={credentials}
+        setCredentials={setCredentials}
+        dispatch={dispatch}
+      />
+    </>
+  );
+};
+export default LoggedIn;
 
 const LogInModal = ({
   showModal,
@@ -79,45 +124,3 @@ const LogInModal = ({
     </Modal>
   );
 };
-
-const LoggedIn = () => {
-  const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.data.loggedIn);
-  const [showModal, setShowModal] = useState(false);
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
-
-  const handleLogIn = () => {
-    setShowModal(true);
-  };
-
-  const handleLogOut = () => {
-    logOut(dispatch);
-  };
-
-  return (
-    <>
-      {loggedIn ? (
-        <div>
-          Welcom John
-          <Button variant='light' size='sm' onClick={handleLogOut}>
-            Log Out
-          </Button>
-        </div>
-      ) : (
-        <div>
-          <Button variant='light' size='sm' onClick={handleLogIn}>
-            Log In
-          </Button>
-        </div>
-      )}
-      <LogInModal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        credentials={credentials}
-        setCredentials={setCredentials}
-        dispatch={dispatch}
-      />
-    </>
-  );
-};
-export default LoggedIn;

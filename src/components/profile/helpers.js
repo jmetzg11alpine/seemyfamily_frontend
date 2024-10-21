@@ -1,4 +1,4 @@
-import { setProfileData, setPhotos } from '../../dataSlice';
+import { setProfileData } from '../../dataSlice';
 import { apiRequest, apiAuthRequest } from '../../apiRequest';
 
 export const getProfileData = async (dispatch, profileId) => {
@@ -17,15 +17,6 @@ export const getRelations = async (profileId, setPossibleRelatives) => {
 
 export const postProfileEdits = async (profileData) => {
   apiAuthRequest('/update_details/', { profileData });
-};
-
-export const uploadPhoto = async (data) => {
-  apiRequest('/upload_photo/', data);
-};
-
-export const getPhotos = async (profileId, setPhotos) => {
-  const response = await apiRequest('/get_photos/', { profileId });
-  setPhotos(response.photos);
 };
 
 export const relationOptions = [

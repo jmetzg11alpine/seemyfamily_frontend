@@ -1,4 +1,5 @@
 export const url = process.env.REACT_APP_API;
+export const urlMedia = process.env.REACT_APP_MEDIA;
 
 export const apiRequest = async (endpoint, body) => {
   const headers = {

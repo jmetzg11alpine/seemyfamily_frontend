@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getData, requestSort, getSortIndicator } from './helpers';
+import { getData, checkLoginStatus, requestSort, getSortIndicator } from './helpers';
 import { setMainData, setProfileId } from '../../dataSlice';
 import { Table } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { getProfileData } from '../profile/helpers';
 
 const Home = () => {
-  const data = useSelector((state) => state.data.mainData);
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.data.mainData);
   const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'ascending' });
   const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ const Home = () => {
       dispatch(setMainData(results.data));
     };
     fetchData();
+    checkLoginStatus(dispatch);
   }, [dispatch]);
 
   const sortedData =
