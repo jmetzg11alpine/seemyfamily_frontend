@@ -18,6 +18,9 @@ const Profile = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.profileData);
 
+  const photoLocation = `${urlMedia}${data.photo}`;
+  console.log(photoLocation);
+
   const addRelative = () => {
     dispatch(setAddRelativeModal(true));
   };
