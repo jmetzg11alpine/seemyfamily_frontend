@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setAddRelativeModal } from '../../dataSlice';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import { getProfileData, addRelative, relationOptions } from './helpers';
+import styled from 'styled-components';
 
 const AddRelativeModal = ({ name }) => {
   const dispatch = useDispatch();
   const showModal = useSelector((state) => state.data.addRelativeModal);
   const profileId = useSelector((state) => state.data.profileId);
+  const loggedIn = useSelector((state) => state.data.loggedIn);
   const [location, setLocation] = useState('');
   const [newProfile, setNewProfile] = useState({});
 
@@ -54,7 +56,7 @@ const AddRelativeModal = ({ name }) => {
   };
 
   return (
-    <Modal show={showModal} size='lg'>
+    <StyledModal show={showModal} size='lg'>
       <Modal.Header>
         <Modal.Title>Add New Relative to {name}</Modal.Title>
       </Modal.Header>
@@ -91,7 +93,6 @@ const AddRelativeModal = ({ name }) => {
               </Form.Group>
             </Col>
           </Row>
-
           <Row>
             <Col md={6}>
               <Form.Group className='mb-3'>
@@ -167,7 +168,7 @@ const AddRelativeModal = ({ name }) => {
         <Button
           variant='primary'
           onClick={handleSubmit}
-          disabled={!newProfile.name || !newProfile.relation}
+          disabled={!newProfile.name || !newProfile.relation || !loggedIn}
         >
           Submit
         </Button>
@@ -175,7 +176,13 @@ const AddRelativeModal = ({ name }) => {
           Close
         </Button>
       </Modal.Footer>
-    </Modal>
+    </StyledModal>
   );
 };
 export default AddRelativeModal;
+
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    min-width: 90vw;
+  }
+`;

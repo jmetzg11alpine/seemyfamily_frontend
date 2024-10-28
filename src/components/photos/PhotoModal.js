@@ -12,6 +12,7 @@ const PhotoModal = ({ name }) => {
   const dispatch = useDispatch();
   const showModal = useSelector((state) => state.data.photoModal);
   const profileId = useSelector((state) => state.data.profileId);
+  const loggedIn = useSelector((state) => state.data.loggedIn);
   const [photoMode, setPhotoMode] = useState('show');
   const [photos, setPhotos] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -60,12 +61,14 @@ const PhotoModal = ({ name }) => {
         {photos.length > 0 && (
           <>
             <Button
+              disabled={!loggedIn}
               variant={photoMode === 'add' ? 'primary' : 'success'}
               onClick={() => setPhotoMode(photoMode === 'add' ? 'show' : 'add')}
             >
               {photoMode === 'add' ? 'Show Photos' : 'Add Photo'}
             </Button>
             <Button
+              disabled={!loggedIn}
               variant={photoMode === 'edit' ? 'primary' : 'warning'}
               onClick={() => setPhotoMode(photoMode === 'edit' ? 'show' : 'edit')}
             >
@@ -84,14 +87,17 @@ const PhotoModal = ({ name }) => {
 
 const StyledModal = styled(Modal)`
   .modal-dialog {
-    max-width: 90vw;
+    min-width: 90vw;
     max-height: 70vh;
+    margin: auto;
+    margin-top: 20px;
   }
 
   .modal-content {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
   }
 
   .carousel-control-prev-icon,

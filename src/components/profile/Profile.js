@@ -17,6 +17,7 @@ import { urlMedia } from '../../apiRequest';
 const Profile = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.profileData);
+  const loggedIn = useSelector((state) => state.data.loggedIn);
 
   const photoLocation = `${urlMedia}${data.photo}`;
   console.log(photoLocation);
@@ -102,12 +103,12 @@ const Profile = () => {
       </Row>
       <Row>
         <Col>
-          <Button variant='success' onClick={addRelative}>
+          <Button disabled={!loggedIn} variant='success' onClick={addRelative}>
             Add Relative
           </Button>
         </Col>
         <Col>
-          <Button variant='warning' onClick={editDetails}>
+          <Button disabled={!loggedIn} variant='warning' onClick={editDetails}>
             Edit Details
           </Button>
         </Col>

@@ -9,12 +9,14 @@ import {
   relationOptions,
 } from './helpers';
 import Select from 'react-select';
+import styled from 'styled-components';
 
 const EditDetailsModal = ({ name }) => {
   const dispatch = useDispatch();
   const profileId = useSelector((state) => state.data.profileId);
   const showModal = useSelector((state) => state.data.editDetailsModal);
   const initialProfileData = useSelector((state) => state.data.profileData);
+  const loggedIn = useSelector((state) => state.data.loggedIn);
   const [profileData, setProfileData] = useState({});
   const [possibleRelatives, setPossibleRelatives] = useState([]);
   const [clickedRemoveId, setClickRemoveId] = useState(null);
@@ -51,7 +53,7 @@ const EditDetailsModal = ({ name }) => {
   };
 
   return (
-    <Modal show={showModal} size='lg'>
+    <StyledModal show={showModal} size='lg'>
       <Modal.Title className='p-3'>Edit {name}</Modal.Title>
       <Modal.Body>
         <Row>
@@ -97,7 +99,7 @@ const EditDetailsModal = ({ name }) => {
               </Form.Group>
             </Row>
             <Row>
-              <Col md={3}>
+              <Col sm={6}>
                 <Form.Group>
                   <Form.Label>Lat</Form.Label>
                   <Form.Control
@@ -109,7 +111,7 @@ const EditDetailsModal = ({ name }) => {
                   />
                 </Form.Group>
               </Col>
-              <Col md={3}>
+              <Col sm={6}>
                 <Form.Group>
                   <Form.Label>lng</Form.Label>
                   <Form.Control
@@ -190,14 +192,20 @@ const EditDetailsModal = ({ name }) => {
         </Row>
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-between'>
-        <Button variatn='primary' onClick={handleSubmit}>
+        <Button disabled={!loggedIn} variatn='primary' onClick={handleSubmit}>
           Update
         </Button>
         <Button variant='secondary' onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>
-    </Modal>
+    </StyledModal>
   );
 };
 export default EditDetailsModal;
+
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    min-width: 90vw;
+  }
+`;
