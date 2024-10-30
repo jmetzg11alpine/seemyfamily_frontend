@@ -49,9 +49,11 @@ const Edits = () => {
           <Button className='me-4' onClick={handlePrevPage}>
             <FaArrowLeft />
           </Button>
-          <span>
-            Page {currentPage} of {Math.ceil(data.length / rowsPerPage)}
-          </span>
+          {data && (
+            <span>
+              Page {currentPage} of {Math.ceil(data.length / rowsPerPage)}
+            </span>
+          )}
           <Button className='ms-4' onClick={handleNextPage}>
             <FaArrowRight />
           </Button>
