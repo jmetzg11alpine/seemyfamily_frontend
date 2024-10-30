@@ -41,7 +41,7 @@ const PhotoModal = ({ name }) => {
   }, [profileId, showModal]);
 
   return (
-    <StyledModal className='MY-MODAL' show={showModal} fullscreen='lg-down'>
+    <StyledModal className='MY-MODAL' show={showModal} size='lg'>
       <Modal.Header>{name}</Modal.Header>
       <Modal.Body>
         {photoMode === 'add' || photos.length === 0 ? (
@@ -88,6 +88,7 @@ const PhotoModal = ({ name }) => {
 const StyledModal = styled(Modal)`
   .modal-dialog {
     min-width: 90vw;
+    max-width: 90vw;
     max-height: 70vh;
     margin: auto;
     margin-top: 20px;

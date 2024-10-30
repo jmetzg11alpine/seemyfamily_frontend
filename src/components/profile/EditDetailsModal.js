@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEditDetailsModal } from '../../dataSlice';
 import { Modal, Button, Form, Row, Col, Table } from 'react-bootstrap';
@@ -6,6 +7,7 @@ import {
   getProfileData,
   getRelations,
   postProfileEdits,
+  deleteProfile,
   relationOptions,
 } from './helpers';
 import Select from 'react-select';
@@ -13,6 +15,7 @@ import styled from 'styled-components';
 
 const EditDetailsModal = ({ name }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const profileId = useSelector((state) => state.data.profileId);
   const showModal = useSelector((state) => state.data.editDetailsModal);
   const initialProfileData = useSelector((state) => state.data.profileData);
@@ -50,6 +53,12 @@ const EditDetailsModal = ({ name }) => {
     await postProfileEdits(profileData);
     handleClose();
     getProfileData(dispatch, profileId);
+  };
+
+  const deleteUser = async () => {
+    await deleteProfile(profileData);
+    handleClose();
+    navigate('/');
   };
 
   return (
@@ -192,8 +201,11 @@ const EditDetailsModal = ({ name }) => {
         </Row>
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-between'>
-        <Button disabled={!loggedIn} variatn='primary' onClick={handleSubmit}>
+        <Button disabled={!loggedIn} variant='primary' onClick={handleSubmit}>
           Update
+        </Button>
+        <Button disabled={!loggedIn} variant='danger' onClick={deleteUser}>
+          Delete
         </Button>
         <Button variant='secondary' onClick={handleClose}>
           Close
@@ -207,5 +219,6 @@ export default EditDetailsModal;
 const StyledModal = styled(Modal)`
   .modal-dialog {
     min-width: 90vw;
+    max-width: 90vw;
   }
 `;

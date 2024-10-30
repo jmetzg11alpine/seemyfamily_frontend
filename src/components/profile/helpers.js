@@ -19,6 +19,10 @@ export const postProfileEdits = async (profileData) => {
   apiAuthRequest('/update_details/', { profileData });
 };
 
+export const deleteProfile = async (profileData) => {
+  apiAuthRequest('/delete_profile/', { profileData });
+};
+
 export const relationOptions = [
   { value: 'Parent', label: 'Parent' },
   { value: 'Sibling', label: 'Sibling' },

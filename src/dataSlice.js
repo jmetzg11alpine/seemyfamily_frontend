@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 export const dataSlice = createSlice({
   name: 'data',
   initialState: {
-    value: 0,
     mainData: [],
     profileId: 1,
     profileData: {},
@@ -14,9 +13,6 @@ export const dataSlice = createSlice({
     userName: '',
   },
   reducers: {
-    addValue: (state) => {
-      state.value += 1;
-    },
     setMainData: (state, action) => {
       state.mainData = action.payload;
     },
@@ -45,7 +41,6 @@ export const dataSlice = createSlice({
 });
 
 export const {
-  addValue,
   setMainData,
   setProfileId,
   setProfileData,

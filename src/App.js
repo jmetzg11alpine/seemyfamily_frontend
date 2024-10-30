@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/header/Header';
 import Home from './components/home/Home';
 import Map from './components/Map';
-import Info from './components/Info';
+import Info from './components/info/Info';
 import Profile from './components/profile/Profile';
 import styled from 'styled-components';
 

@@ -184,5 +184,6 @@ export default AddRelativeModal;
 const StyledModal = styled(Modal)`
   .modal-dialog {
     min-width: 90vw;
+    max-width: 90vw;
   }
 `;
