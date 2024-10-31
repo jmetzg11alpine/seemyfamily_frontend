@@ -6,18 +6,19 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  Filler,
 } from 'chart.js';
 import styled from 'styled-components';
 import { ButtonGroup, Button } from 'react-bootstrap';
 import { getVisitors } from './helpers';
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Filler);
 
 const Visitors = () => {
   const lineRef = useRef(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const [selectedRange, setSelectedRange] = useState('week');
-  const [chartData, setChartData] = useState({});
+  const [chartData, setChartData] = useState({ data: [], labels: [] });
 
   const ranges = [
     { name: '6 Months', value: '6months' },
@@ -46,11 +47,11 @@ const Visitors = () => {
   }, []);
 
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: chartData.labels,
     datasets: [
       {
-        label: 'Sales',
-        data: [30, 50, 40, 60, 70, 90, 100],
+        label: 'Count',
+        data: chartData.data,
         borderColor: 'rgba(75,192,192,1)',
         backgroundColor: 'rgba(75,192,192,0.2)',
         fill: true,
@@ -70,15 +71,16 @@ const Visitors = () => {
       x: {
         title: {
           display: true,
-          text: 'Months',
+          text: 'Date',
         },
       },
       y: {
         title: {
           display: true,
-          text: 'Sales',
+          text: 'Count',
         },
         beginAtZero: true,
+        ticks: { stepSize: 1 },
       },
     },
   };
@@ -119,7 +121,6 @@ const Container = styled.div`
 
 const TitleContainer = styled.div`
   height: 10%;
-  background-color: pink;
   display: flex;
   align-items: center;
   padding: 0 15%;
@@ -127,5 +128,4 @@ const TitleContainer = styled.div`
 `;
 const LineContainer = styled.div`
   height: 90%;
-  background-color: yellow;
 `;

@@ -26,11 +26,13 @@ const Edits = () => {
     const updateRowsPerPage = () => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-        if (width > 800) setRowsPerPage(17);
-        else if (width > 600) setRowsPerPage(15);
-        else if (width > 500) setRowsPerPage(12);
-        else if (width > 400) setRowsPerPage(10);
-        else setRowsPerPage(8);
+        console.log(width);
+        if (width > 800) setRowsPerPage(16);
+        else if (width > 700) setRowsPerPage(14);
+        else if (width > 600) setRowsPerPage(12);
+        else if (width > 500) setRowsPerPage(6);
+        else if (width > 400) setRowsPerPage(4);
+        else setRowsPerPage(3);
       }
     };
     updateRowsPerPage();

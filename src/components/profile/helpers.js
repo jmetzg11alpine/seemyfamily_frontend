@@ -16,7 +16,7 @@ export const getRelations = async (profileId, setPossibleRelatives) => {
 };
 
 export const postProfileEdits = async (profileData) => {
-  apiAuthRequest('/update_details/', { profileData });
+  await apiAuthRequest('/update_details/', { profileData });
 };
 
 export const deleteProfile = async (profileData) => {
