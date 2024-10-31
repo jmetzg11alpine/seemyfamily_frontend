@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Row, Col, Image, Table, Button } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -7,7 +8,8 @@ import {
   setProfileId,
   setPhotoModal,
 } from '../../dataSlice';
-import { ClickableRow } from '../home/Home';
+import { ClickableRow, SortableTh } from '../home/Home';
+import { requestSort, getSortIndicator } from '../home/helpers';
 import { getProfileData } from './helpers';
 import AddRelativeModal from './AddRelativeModal';
 import EditDetailsModal from './EditDetailsModal';
@@ -18,9 +20,24 @@ const Profile = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.profileData);
   const loggedIn = useSelector((state) => state.data.loggedIn);
+  const [sortConfig, setSortConfig] = useState({
+    key: 'relation',
+    direction: 'ascending',
+  });
 
-  const photoLocation = `${urlMedia}${data.photo}`;
-  console.log(photoLocation);
+  const relations = data.relations;
+  const sortedRelations =
+    relations && relations.length > 0
+      ? [...relations].sort((a, b) => {
+          if (a[sortConfig.key] < b[sortConfig.key]) {
+            return sortConfig.direction === 'ascending' ? -1 : 1;
+          }
+          if (a[sortConfig.key] > b[sortConfig.key]) {
+            return sortConfig.direction === 'ascending' ? 1 : -1;
+          }
+          return 0;
+        })
+      : 0;
 
   const addRelative = () => {
     dispatch(setAddRelativeModal(true));
@@ -80,13 +97,21 @@ const Profile = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Relation</th>
-                <th>Name</th>
+                <SortableTh
+                  onClick={() => requestSort('relation', sortConfig, setSortConfig)}
+                >
+                  Relation{getSortIndicator('relation', sortConfig)}
+                </SortableTh>
+                <SortableTh
+                  onClick={() => requestSort('name', sortConfig, setSortConfig)}
+                >
+                  Name{getSortIndicator('name', sortConfig)}
+                </SortableTh>
               </tr>
             </thead>
             <tbody>
-              {data.relations && data.relations.length > 0 ? (
-                data.relations.map((item, index) => (
+              {sortedRelations && sortedRelations.length > 0 ? (
+                sortedRelations.map((item, index) => (
                   <ClickableRow key={index} onClick={() => rowClicked(item.id)}>
                     <td>{item.relation}</td>
                     <td>{item.name}</td>

@@ -2,11 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getData, checkLoginStatus, requestSort, getSortIndicator } from './helpers';
 import { setMainData, setProfileId } from '../../dataSlice';
-import { Table } from 'react-bootstrap';
+import { Table, Image } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { getProfileData } from '../profile/helpers';
 import TopPart from './TopPart';
+import { urlMedia } from '../../apiRequest';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [photoSize, setPhotoSize] = useState(20);
   const containerRef = useRef();
   const navigate = useNavigate();
 
@@ -45,11 +47,28 @@ const Home = () => {
     const updateRowsPerPage = () => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-        if (width > 800) setRowsPerPage(25);
-        else if (width > 600) setRowsPerPage(14);
-        else if (width > 500) setRowsPerPage(8);
-        else if (width > 400) setRowsPerPage(5);
-        else setRowsPerPage(8);
+        if (width > 1200) {
+          setPhotoSize(32);
+          setRowsPerPage(20);
+        } else if (width > 1100) {
+          setPhotoSize(32);
+          setRowsPerPage(18);
+        } else if (width > 900) {
+          setPhotoSize(30);
+          setRowsPerPage(18);
+        } else if (width > 800) {
+          setPhotoSize(28);
+          setRowsPerPage(16);
+        } else if (width > 700) {
+          setPhotoSize(26);
+          setRowsPerPage(14);
+        } else if (width > 600) {
+          setPhotoSize(25);
+          setRowsPerPage(10);
+        } else {
+          setPhotoSize(24);
+          setRowsPerPage(6);
+        }
       }
     };
     updateRowsPerPage();
@@ -104,15 +123,25 @@ const Home = () => {
           {currentRows.length > 0 ? (
             currentRows.map((item) => (
               <ClickableRow onClick={() => rowClicked(item.id)} key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.location__name}</td>
+                <td>
+                  <Image
+                    src={`${urlMedia}${item.photo}`}
+                    alt={`{item.name}'s profile`}
+                    roundedCircle
+                    width={photoSize}
+                    height={photoSize}
+                    className='me-2'
+                  />
+                  {item.name}
+                </td>
+                <td>{item.location}</td>
                 <td>{item.birthdate}</td>
                 <td>{item.birthplace}</td>
               </ClickableRow>
             ))
           ) : (
             <tr>
-              <td colSpan='3'>Loading...</td>
+              <td colSpan='4'>Loading...</td>
             </tr>
           )}
         </tbody>
@@ -126,6 +155,7 @@ export default Home;
 const Container = styled.div`
   height: 100%;
   width: 100%;
+  overflow-y: hidden;
 `;
 
 export const StyledTable = styled(Table)`
