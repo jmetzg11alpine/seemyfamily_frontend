@@ -9,7 +9,7 @@ import {
   Filler,
 } from 'chart.js';
 import styled from 'styled-components';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { ButtonGroup, Button, Container } from 'react-bootstrap';
 import { getVisitors } from './helpers';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Filler);
@@ -85,10 +85,10 @@ const Visitors = () => {
     },
   };
   return (
-    <Container>
+    <StyledContainer>
       <TitleContainer>
         <h4>Visitors</h4>
-        <ButtonGroup>
+        <StyledButtonGroup>
           {ranges.map((range) => (
             <Button
               key={range.value}
@@ -98,7 +98,7 @@ const Visitors = () => {
               {range.name}
             </Button>
           ))}
-        </ButtonGroup>
+        </StyledButtonGroup>
       </TitleContainer>
       <LineContainer ref={lineRef}>
         <Line
@@ -108,24 +108,44 @@ const Visitors = () => {
           height={containerSize.height}
         />
       </LineContainer>
-    </Container>
+    </StyledContainer>
   );
 };
 export default Visitors;
 
-const Container = styled.div`
-  width: 100%;
+const StyledContainer = styled(Container).attrs({ fluid: true })`
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  padding: 10px;
 `;
 
 const TitleContainer = styled.div`
   height: 10%;
   display: flex;
   align-items: center;
-  padding: 0 15%;
   justify-content: space-between;
+  width: 90%;
+`;
+
+const StyledButtonGroup = styled(ButtonGroup)`
+  .btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 576px) {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
 `;
 const LineContainer = styled.div`
-  height: 90%;
+  height: 85%;
+  width: 90%;
 `;

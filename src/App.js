@@ -10,9 +10,7 @@ function App() {
   return (
     <Router>
       <Container>
-        <HeaderContainer>
-          <Header />
-        </HeaderContainer>
+        <Header />
         <ContentContainer>
           <Routes>
             <Route path='/' element={<Home />} />
@@ -33,12 +31,7 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const HeaderContainer = styled.div`
-  height: 5vh;
-  width: 100%;
-`;
-
 const ContentContainer = styled.div`
   height: 95vh;
-  width: 100%;
+  width: 100vw;
 `;

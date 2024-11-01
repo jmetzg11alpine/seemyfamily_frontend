@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getData, checkLoginStatus, requestSort, getSortIndicator } from './helpers';
 import { setMainData, setProfileId } from '../../dataSlice';
-import { Table, Image } from 'react-bootstrap';
+import { Container, Table, Image } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { getProfileData } from '../profile/helpers';
@@ -55,19 +55,19 @@ const Home = () => {
           setRowsPerPage(18);
         } else if (width > 900) {
           setPhotoSize(30);
-          setRowsPerPage(18);
+          setRowsPerPage(16);
         } else if (width > 800) {
           setPhotoSize(28);
-          setRowsPerPage(16);
+          setRowsPerPage(15);
         } else if (width > 700) {
           setPhotoSize(26);
           setRowsPerPage(14);
-        } else if (width > 600) {
+        } else if (width > 400) {
           setPhotoSize(25);
-          setRowsPerPage(10);
+          setRowsPerPage(12);
         } else {
           setPhotoSize(24);
-          setRowsPerPage(6);
+          setRowsPerPage(8);
         }
       }
     };
@@ -87,7 +87,7 @@ const Home = () => {
   };
 
   return (
-    <Container ref={containerRef}>
+    <StyledContainer ref={containerRef}>
       <TopPart
         dataLength={filteredData.length}
         searchQuery={searchQuery}
@@ -146,13 +146,13 @@ const Home = () => {
           )}
         </tbody>
       </StyledTable>
-    </Container>
+    </StyledContainer>
   );
 };
 
 export default Home;
 
-const Container = styled.div`
+const StyledContainer = styled(Container).attrs({ fluid: true })`
   height: 100%;
   width: 100%;
   overflow-y: hidden;
@@ -164,6 +164,24 @@ export const StyledTable = styled(Table)`
 
   thead th {
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+
+    th,
+    td {
+      padding: 0.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.75rem;
+
+    th,
+    td {
+      padding: 0.3rem;
+    }
   }
 `;
 

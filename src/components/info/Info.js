@@ -2,36 +2,37 @@ import styled from 'styled-components';
 import Edits from './Edits';
 import Information from './Information';
 import Visitors from './Visitors';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Info = () => {
   return (
-    <Container>
-      <FirstRow>
-        <Edits />
-        <Information />
-      </FirstRow>
-      <SecondRow>
-        <Visitors />
-      </SecondRow>
-    </Container>
+    <StyledContainer>
+      <StyledRow>
+        <Col xs={12} sm={6} className='r1-c1 p-0'>
+          <Edits />
+        </Col>
+        <Col xs={12} sm={6} className='r1-c2'>
+          <Information />
+        </Col>
+      </StyledRow>
+      <StyledRow>
+        <Col xs={12} className='r2'>
+          <Visitors />
+        </Col>
+      </StyledRow>
+    </StyledContainer>
   );
 };
 export default Info;
 
-const Container = styled.div`
+const StyledContainer = styled(Container).attrs({ fluid: true })`
+  height: 95vh;
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  padding: 0;
 `;
 
-const FirstRow = styled.div`
-  height: 65%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-const SecondRow = styled.div`
-  height: 35%;
+const StyledRow = styled(Row)`
+  height: 50%;
   width: 100%;
 `;
