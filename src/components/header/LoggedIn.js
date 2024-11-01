@@ -110,8 +110,8 @@ const LogInModal = ({
         <>
           <Modal.Header>Invalid Credentials</Modal.Header>
           <Modal.Body>
-            Credentials of name: `${credentials.username}` and password: `$
-            {credentials.password}` are incorrect
+            Credentials of name: {credentials.username} and password:{' '}
+            {credentials.password} are incorrect
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={() => setMainBody(true)}>Try Again</Button>

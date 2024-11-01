@@ -16,8 +16,9 @@ export const checkLoginStatus = async (dispatch) => {
     },
     body: JSON.stringify({ refresh: refreshToken }),
   });
-  if (response.ok) {
-    const resp = await response.json();
+  const resp = await response.json();
+
+  if (resp.message === 'good') {
     localStorage.setItem('accessToken', resp.access);
     dispatch(setUserName(resp.user_name));
     dispatch(setLoggedIn(true));

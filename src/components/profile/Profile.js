@@ -58,43 +58,40 @@ const Profile = () => {
 
   return (
     <StyledContainer fluid>
-      <Row className='pt-4'>
-        <Col xs={12} md={4} className='text-center'>
-          <Image
+      <Row className='mt-4'>
+        <Col xs={4} className='text-center'>
+          <ResponsiveImage
             roundedCircle
-            fluid
             src={`${urlMedia}${data.photo}`}
             style={{ cursor: 'pointer' }}
             onClick={viewPhotos}
           />
-          <h3 className='mt-3'>{data.name}</h3>
+          <h4>{data.name}</h4>
         </Col>
-        <Col>
+        <Col xs={8}>
           <div className='mt-3'>
-            <h5>Bio</h5>
-            <p>{data.bio}</p>
+            <h4>Bio</h4>
+            <StyledP>{data.bio}</StyledP>
           </div>
           <div className='mt-4'>
-            <h5>Basic Info</h5>
-            <p>
+            <StyledP>
               <strong>Location </strong>
               {data.location}
-            </p>
-            <p>
+            </StyledP>
+            <StyledP>
               <strong>BirthPlace </strong>
               {data.birthplace}
-            </p>
-            <p>
+            </StyledP>
+            <StyledP>
               <strong>BirthDate </strong>
               {data.birthdate}
-            </p>
+            </StyledP>
           </div>
         </Col>
       </Row>
       <Row className='mt-5'>
         <Col xs={12}>
-          <h4>Family Relations</h4>
-          <Table striped bordered hover>
+          <StyledTable striped bordered hover>
             <thead>
               <tr>
                 <SortableTh
@@ -123,7 +120,7 @@ const Profile = () => {
                 </tr>
               )}
             </tbody>
-          </Table>
+          </StyledTable>
         </Col>
       </Row>
       <Row>
@@ -146,8 +143,62 @@ const Profile = () => {
 };
 export default Profile;
 
-const StyledContainer = styled(Container)`
+const StyledContainer = styled(Container).attrs({ fluid: true })`
   height: 100%;
   width: 100%;
   padding: 20px;
+`;
+
+const ResponsiveImage = styled(Image)`
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    max-width: 150px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 100px;
+    margin-bottom: 15px;
+  }
+`;
+
+const StyledP = styled.p`
+  @media (max-width: 768px);
+   {
+    font-size: 0.7rem;
+  }
+  @media (max-width: 576px) {
+    font-size: 0.6rem;
+  }
+`;
+
+export const StyledTable = styled(Table)`
+  overflow-y: auto;
+  width: 100%;
+
+  thead th {
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.85rem;
+
+    th,
+    td {
+      padding: 0.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    font-size: 0.75rem;
+
+    th,
+    td {
+      padding: 0.3rem;
+    }
+  }
 `;

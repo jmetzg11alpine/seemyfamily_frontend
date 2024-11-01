@@ -67,7 +67,7 @@ const Edits = () => {
         <tbody>
           {data &&
             currentRows.map((edit, index) => (
-              <tr>
+              <tr key={index}>
                 <td>{edit.created_at.split('T')[0]}</td>
                 <td>{edit.username}</td>
                 <td>{edit.action}</td>
