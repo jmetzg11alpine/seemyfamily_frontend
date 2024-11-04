@@ -131,6 +131,7 @@ const Home = () => {
                     width={photoSize}
                     height={photoSize}
                     className='me-2'
+                    style={{ transform: `rotate(${item.rotation * 90}deg)` }}
                   />
                   {item.name}
                 </td>

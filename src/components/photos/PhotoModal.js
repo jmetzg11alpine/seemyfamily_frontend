@@ -20,6 +20,7 @@ const PhotoModal = ({ name }) => {
     profile_pic: true,
     description: '',
     profilePicChanged: false,
+    rotation: 0,
   });
 
   const handleClose = () => {

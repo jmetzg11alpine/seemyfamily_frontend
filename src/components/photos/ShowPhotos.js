@@ -22,6 +22,7 @@ const ShowPhotos = ({ photos, setActiveIndex }) => {
               src={`${urlMedia}${photo.src}`}
               alt={photo.description}
               className='d-block w-100'
+              style={{ transform: `rotate(${photo.rotation * 90}deg)` }}
             />
           </StyledImageContainer>
         </Carousel.Item>

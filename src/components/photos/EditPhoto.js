@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 import { urlMedia } from '../../apiRequest';
 import { getPhotos, editPhoto, deletePhoto } from './helpers';
 import { getProfileData } from '../profile/helpers';
+import { FaRedoAlt } from 'react-icons/fa';
 
 const EditPhoto = ({ photoInfo, setPhotoInfo, setPhotoMode, setPhotos }) => {
   const dispatch = useDispatch();
@@ -25,8 +26,15 @@ const EditPhoto = ({ photoInfo, setPhotoInfo, setPhotoMode, setPhotos }) => {
     }));
   };
 
+  const handleRotatation = () => {
+    setPhotoInfo((prevInfo) => ({
+      ...prevInfo,
+      rotation: (prevInfo.rotation + 1) % 4,
+    }));
+  };
+
   const handleEdit = async () => {
-    await editPhoto(profileId, photoInfo);
+    await editPhoto(photoInfo);
     if (photoInfo.profilePicChanged) {
       getProfileData(dispatch, profileId);
     }
@@ -35,7 +43,7 @@ const EditPhoto = ({ photoInfo, setPhotoInfo, setPhotoMode, setPhotos }) => {
   };
 
   const handleDelete = async () => {
-    await deletePhoto(profileId, photoInfo);
+    await deletePhoto(photoInfo);
     if (photoInfo.profile_pic) {
       getProfileData(dispatch, profileId);
     }
@@ -44,68 +52,88 @@ const EditPhoto = ({ photoInfo, setPhotoInfo, setPhotoMode, setPhotos }) => {
   };
 
   return (
-    <EditPhotoContainer>
-      <PhotoContainer>
-        <img src={`${urlMedia}${photoInfo.src}`} alt='to edit' />
-      </PhotoContainer>
-      <FormContainer>
-        <Form.Group>
-          <Form.Check
-            type='checkbox'
-            label='Profile Photo'
-            name='profile_pic'
-            checked={photoInfo.profile_pic}
-            onChange={handleProfileChange}
-          ></Form.Check>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            type='text'
-            name='description'
-            value={photoInfo.description}
-            onChange={handleInputChange}
-            placeholder='Enter photo description'
+    <StyledRow>
+      <Col sm={4}>
+        <PhotoContainer>
+          <img
+            src={`${urlMedia}${photoInfo.src}`}
+            alt='to edit'
+            style={{ transform: `rotate(${photoInfo.rotation * 90}deg)` }}
           />
-        </Form.Group>
-        <ButtonContainer>
-          <Button onClick={handleEdit} variant='warning'>
-            Edit
-          </Button>
-          <Button onClick={handleDelete} variant='danger'>
-            Delete
-          </Button>
-        </ButtonContainer>
-      </FormContainer>
-    </EditPhotoContainer>
+        </PhotoContainer>
+      </Col>
+      <Col sm={8}>
+        <Row className='my-4'>
+          <Row>
+            <Form.Group as={FlexContainer}>
+              <Form.Check
+                type='checkbox'
+                label='Profile Photo'
+                name='profile_pic'
+                checked={photoInfo.profile_pic}
+                onChange={handleProfileChange}
+              ></Form.Check>
+              <StyledFaRedoAlt onClick={handleRotatation} />
+            </Form.Group>
+          </Row>
+        </Row>
+        <Row className='mb-4'>
+          <Form.Group>
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type='text'
+              name='description'
+              value={photoInfo.description}
+              onChange={handleInputChange}
+              placeholder='Enter photo description'
+            />
+          </Form.Group>
+        </Row>
+        <Row className='mb-4'>
+          <ButtonContainer>
+            <Button onClick={handleEdit} variant='warning'>
+              Edit
+            </Button>
+            <Button onClick={handleDelete} variant='danger'>
+              Delete
+            </Button>
+          </ButtonContainer>
+        </Row>
+      </Col>
+    </StyledRow>
   );
 };
 
 export default EditPhoto;
 
-const EditPhotoContainer = styled.div`
+const StyledRow = styled(Row)`
   display: flex;
-  flex-direction: row;
-  gap: 20px;
-  padding: 20px;
-  background-color: 'blue';
+  align-items: stretch;
 `;
 
 const PhotoContainer = styled.div`
-  flex: 1;
+  padding: 10px;
   img {
     max-width: 100%;
-    max-height: 200px;
+    max-height: 250px;
     border-radius: 10px;
     object-fit: cover;
   }
 `;
 
-const FormContainer = styled.div`
-  flex: 2;
+const FlexContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  align-items: center;
+`;
+
+const StyledFaRedoAlt = styled(FaRedoAlt)`
+  margin-left: 20%;
+  cursor: pointer;
+
+  &:hover {
+    color: #007bff; /* Change color on hover (blue in this case) */
+    transform: scale(1.2); /* Slightly enlarge icon on hover */
+  }
 `;
 
 const ButtonContainer = styled.div`

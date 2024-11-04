@@ -9,10 +9,10 @@ export const getPhotos = async (profileId, setPhotos) => {
   setPhotos(response.photos);
 };
 
-export const editPhoto = async (profileId, photoInfo) => {
+export const editPhoto = async (photoInfo) => {
   await apiAuthRequest('/edit_photo/', photoInfo);
 };
 
-export const deletePhoto = async (profileId, photoInfo) => {
+export const deletePhoto = async (photoInfo) => {
   await apiAuthRequest('/delete_photo/', photoInfo);
 };

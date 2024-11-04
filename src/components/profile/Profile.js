@@ -19,6 +19,7 @@ import { urlMedia } from '../../apiRequest';
 const Profile = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.profileData);
+  console.log(data);
   const loggedIn = useSelector((state) => state.data.loggedIn);
   const [sortConfig, setSortConfig] = useState({
     key: 'relation',
@@ -63,7 +64,7 @@ const Profile = () => {
           <ResponsiveImage
             roundedCircle
             src={`${urlMedia}${data.photo}`}
-            style={{ cursor: 'pointer' }}
+            style={{ transform: `rotate(${data.rotation * 90}deg)` }}
             onClick={viewPhotos}
           />
           <h4>{data.name}</h4>
