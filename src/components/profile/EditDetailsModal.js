@@ -66,85 +66,85 @@ const EditDetailsModal = ({ name }) => {
       <Modal.Title className='p-3'>Edit {name}</Modal.Title>
       <Modal.Body>
         <Row>
-          <Col md={6}>
-            <Row className='mb-3'>
-              <Form.Group>
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type='text'
-                  value={profileData.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
-                />
-              </Form.Group>
-            </Row>
-            <Row className='mb-3'>
-              <Form.Group>
-                <Form.Label>Birth Place</Form.Label>
-                <Form.Control
-                  type='text'
-                  value={profileData.birthplace}
-                  onChange={(e) => handleChange('birthplace', e.target.value)}
-                />
-              </Form.Group>
-            </Row>
-            <Row className='mb-3'>
-              <Form.Group>
-                <Form.Label>Birth Date</Form.Label>
-                <Form.Control
-                  type='date'
-                  value={profileData.birthdate}
-                  onChange={(e) => handleChange('birthdate', e.target.value)}
-                />
-              </Form.Group>
-            </Row>
-            <Row className='mb-3'>
-              <Form.Group>
-                <Form.Label>Location</Form.Label>
-                <Form.Control
-                  type='text'
-                  value={profileData.location}
-                  onChange={(e) => handleChange('location', e.target.value)}
-                />
-              </Form.Group>
-            </Row>
-            <Row>
-              <Col sm={6}>
-                <Form.Group>
-                  <Form.Label>Lat</Form.Label>
-                  <Form.Control
-                    type='number'
-                    step='any'
-                    value={profileData.lat}
-                    disabled={!profileData.location}
-                    onChange={(e) => handleChange('lat', e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col sm={6}>
-                <Form.Group>
-                  <Form.Label>lng</Form.Label>
-                  <Form.Control
-                    type='number'
-                    step='any'
-                    value={profileData.lng}
-                    disabled={!profileData.location}
-                    onChange={(e) => handleChange('lng', e.target.value)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-          </Col>
-          <Col md={6}>
+          <Col sm={6}>
             <Form.Group>
-              <Form.Label>Bio</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
-                as='textarea'
-                value={profileData.bio}
-                rows={15}
-                onChange={(e) => handleChange('bio', e.target.value)}
+                type='text'
+                value={profileData.name}
+                onChange={(e) => handleChange('name', e.target.value)}
               />
             </Form.Group>
           </Col>
+          <Col sm={6}>
+            <Form.Group>
+              <Form.Label>Birth Place</Form.Label>
+              <Form.Control
+                type='text'
+                value={profileData.birthplace}
+                onChange={(e) => handleChange('birthplace', e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={6}>
+            <Form.Group>
+              <Form.Label>Birth Date</Form.Label>
+              <Form.Control
+                type='date'
+                value={profileData.birthdate}
+                onChange={(e) => handleChange('birthdate', e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+          <Col sm={6}>
+            <Form.Group>
+              <Form.Label>Location</Form.Label>
+              <Form.Control
+                type='text'
+                value={profileData.location}
+                onChange={(e) => handleChange('location', e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={6}>
+            <Form.Group>
+              <Form.Label>Lat</Form.Label>
+              <Form.Control
+                type='number'
+                step='any'
+                value={profileData.lat}
+                disabled={!profileData.location}
+                onChange={(e) => handleChange('lat', e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+          <Col sm={6}>
+            <Form.Group>
+              <Form.Label>lng</Form.Label>
+              <Form.Control
+                type='number'
+                step='any'
+                value={profileData.lng}
+                disabled={!profileData.location}
+                onChange={(e) => handleChange('lng', e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Form.Group>
+            <Form.Label>Bio</Form.Label>
+            <Form.Control
+              as='textarea'
+              value={profileData.bio}
+              rows={5}
+              onChange={(e) => handleChange('bio', e.target.value)}
+            />
+          </Form.Group>
         </Row>
         <Row>
           <Table>
@@ -218,7 +218,15 @@ export default EditDetailsModal;
 
 const StyledModal = styled(Modal)`
   .modal-dialog {
-    min-width: 90vw;
     max-width: 90vw;
+    margin: auto;
+  }
+
+  @media (max-width: 768px) {
+    .modal-dialog {
+      min-width: 100vw;
+      max-width: 100vw;
+      margin: 0;
+    }
   }
 `;

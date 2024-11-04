@@ -62,9 +62,9 @@ const AddRelativeModal = ({ name }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col md={6}>
-              <Form.Group className='mb-3'>
+          <Row className='mb-3'>
+            <Col sm={6}>
+              <Form.Group>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type='text'
@@ -74,8 +74,8 @@ const AddRelativeModal = ({ name }) => {
                 />
               </Form.Group>
             </Col>
-            <Col md={6}>
-              <Form.Group className='mb-3'>
+            <Col sm={6}>
+              <Form.Group>
                 <Form.Label>Relation</Form.Label>
                 <Form.Select
                   value={newProfile.relation || ''}
@@ -93,9 +93,9 @@ const AddRelativeModal = ({ name }) => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col md={6}>
-              <Form.Group className='mb-3'>
+          <Row className='mb-3'>
+            <Col sm={6}>
+              <Form.Group>
                 <Form.Label>Current Location</Form.Label>
                 <Form.Control
                   type='text'
@@ -105,8 +105,8 @@ const AddRelativeModal = ({ name }) => {
                 />
               </Form.Group>
             </Col>
-            <Col md={3}>
-              <Form.Group className='mb-3'>
+            <Col sm={3}>
+              <Form.Group>
                 <Form.Label>Lat</Form.Label>
                 <Form.Control
                   type='number'
@@ -116,8 +116,8 @@ const AddRelativeModal = ({ name }) => {
                 />
               </Form.Group>
             </Col>
-            <Col md={3}>
-              <Form.Group className='mb-3'>
+            <Col sm={3}>
+              <Form.Group>
                 <Form.Label>Lng</Form.Label>
                 <Form.Control
                   type='number'
@@ -128,9 +128,9 @@ const AddRelativeModal = ({ name }) => {
               </Form.Group>
             </Col>
           </Row>
-          <Row>
-            <Col md={6}>
-              <Form.Group className='mb-3'>
+          <Row className='mb-3'>
+            <Col sm={6}>
+              <Form.Group>
                 <Form.Label>Birth Place</Form.Label>
                 <Form.Control
                   type='text'
@@ -139,8 +139,8 @@ const AddRelativeModal = ({ name }) => {
                 />
               </Form.Group>
             </Col>
-            <Col md={6}>
-              <Form.Group className='mb-3'>
+            <Col sm={6}>
+              <Form.Group>
                 <Form.Label>Birth Date</Form.Label>
                 <Form.Control
                   type='date'
@@ -150,18 +150,22 @@ const AddRelativeModal = ({ name }) => {
               </Form.Group>
             </Col>
           </Row>
-          <Form.Group className='mb-3'>
-            <Form.Label>Bio</Form.Label>
-            <Form.Control
-              as='textarea'
-              rows={5}
-              onChange={(e) => handleChange('bio', e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className='mb-3'>
-            <Form.Label>Profile Photo</Form.Label>
-            <Form.Control type='file' accept='image/*' onChange={handelePhotoUpload} />
-          </Form.Group>
+          <Row>
+            <Form.Group className='mb-3'>
+              <Form.Label>Bio</Form.Label>
+              <Form.Control
+                as='textarea'
+                rows={5}
+                onChange={(e) => handleChange('bio', e.target.value)}
+              />
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group className='mb-3'>
+              <Form.Label>Profile Photo</Form.Label>
+              <Form.Control type='file' accept='image/*' onChange={handelePhotoUpload} />
+            </Form.Group>
+          </Row>
         </Form>
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-between'>
@@ -183,7 +187,15 @@ export default AddRelativeModal;
 
 const StyledModal = styled(Modal)`
   .modal-dialog {
-    min-width: 90vw;
     max-width: 90vw;
+    margin: auto;
+  }
+
+  @media (max-width: 768px) {
+    .modal-dialog {
+      min-width: 100vw;
+      max-width: 100vw;
+      margin: 0;
+    }
   }
 `;

@@ -10,7 +10,7 @@ const AddPhoto = ({ setPhotoMode, setPhotos }) => {
   const profileId = useSelector((state) => state.data.profileId);
   const [data, setData] = useState({ profileId: profileId });
 
-  const handelePhotoUpload = (event) => {
+  const handlePhotoUpload = (event) => {
     const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
     const file = event.target.files[0];
     if (file && allowedFileTypes.includes(file.type)) {
@@ -47,7 +47,7 @@ const AddPhoto = ({ setPhotoMode, setPhotos }) => {
     <div>
       <Form>
         <Form.Group className='mb-3'>
-          <Form.Control type='file' accept='image/*' onChange={handelePhotoUpload} />
+          <Form.Control type='file' accept='image/*' onChange={handlePhotoUpload} />
         </Form.Group>
         <Form.Group className='mb-3'>
           <Form.Label>Description</Form.Label>

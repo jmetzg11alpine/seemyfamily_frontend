@@ -33,6 +33,10 @@ const StyledContainer = styled(Container).attrs({ fluid: true })`
 `;
 
 const StyledRow = styled(Row)`
-  height: 50%;
   width: 100%;
+  min-height: 50%;
+
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
 `;
