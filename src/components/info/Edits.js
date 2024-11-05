@@ -59,10 +59,12 @@ const Edits = () => {
       </TitleContainer>
       <StyledTable striped bordered hover>
         <thead>
-          <th>Date</th>
-          <th>User</th>
-          <th>Action</th>
-          <th>Recipient</th>
+          <tr>
+            <th>Date</th>
+            <th>User</th>
+            <th>Action</th>
+            <th>Recipient</th>
+          </tr>
         </thead>
         <tbody>
           {data &&
