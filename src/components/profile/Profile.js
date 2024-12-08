@@ -63,10 +63,16 @@ const Profile = () => {
           <ResponsiveImage
             roundedCircle
             src={`${urlMedia}${data.photo}`}
-            style={{ transform: `rotate(${data.rotation * 90}deg)` }}
+            style={{
+              transform: `rotate(${data.rotation * 90}deg)`,
+              maxHeight: '250px',
+              width: 'auto',
+              display: 'block',
+              margin: '0 auto',
+            }}
             onClick={viewPhotos}
           />
-          <h4>{data.name}</h4>
+          <h4 className='mt-5'>{data.name}</h4>
         </Col>
         <Col xs={8}>
           <div className='mt-3'>
