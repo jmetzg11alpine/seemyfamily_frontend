@@ -4,36 +4,20 @@ import 'leaflet/dist/leaflet.css';
 import { apiRequest } from '../apiRequest';
 import styled from 'styled-components';
 
-// Sample icon setup for Leaflet (required for custom marker icons)
-import L from 'leaflet';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
-const defaultIcon = L.icon({
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
-
-// L.Marker.prototype.options.icon = defaultIcon;
-
-const getData = async (setLocations) => {
-  const data = await apiRequest('/get_geo_data');
-  setLocations(data.data);
-};
-
 const Map = () => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    getData(setLocations);
+    const getData = async () => {
+      const data = await apiRequest('/get_geo_data/');
+      setLocations(data.data || []);
+    };
+
+    getData();
   }, []);
   return (
     <MapContainer
-      center={[51.505, -85]}
+      center={[40.505, -25]}
       zoom={3}
       style={{ height: '95vh', width: '100%' }}
     >

@@ -141,11 +141,11 @@ const AddRelativeModal = ({ name }) => {
             </Col>
             <Col sm={6}>
               <Form.Group>
-                <Form.Label>Birth Date</Form.Label>
+                <Form.Label>Birth year</Form.Label>
                 <Form.Control
-                  type='date'
+                  type='integer'
                   placeholder='Enter birth date'
-                  onChange={(e) => handleChange('birthdate', e.target.value)}
+                  onChange={(e) => handleChange('birthyear', e.target.value)}
                 />
               </Form.Group>
             </Col>

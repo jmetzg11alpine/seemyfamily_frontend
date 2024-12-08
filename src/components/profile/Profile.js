@@ -19,7 +19,6 @@ import { urlMedia } from '../../apiRequest';
 const Profile = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.data.profileData);
-  console.log(data);
   const loggedIn = useSelector((state) => state.data.loggedIn);
   const [sortConfig, setSortConfig] = useState({
     key: 'relation',
@@ -80,12 +79,12 @@ const Profile = () => {
               {data.location}
             </StyledP>
             <StyledP>
-              <strong>BirthPlace </strong>
+              <strong>Birth Place </strong>
               {data.birthplace}
             </StyledP>
             <StyledP>
-              <strong>BirthDate </strong>
-              {data.birthdate}
+              <strong>Birth Year </strong>
+              {data.birthyear}
             </StyledP>
           </div>
         </Col>

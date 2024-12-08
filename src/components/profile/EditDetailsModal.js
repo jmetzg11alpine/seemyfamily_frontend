@@ -90,11 +90,11 @@ const EditDetailsModal = ({ name }) => {
         <Row>
           <Col sm={6}>
             <Form.Group>
-              <Form.Label>Birth Date</Form.Label>
+              <Form.Label>Birth Year</Form.Label>
               <Form.Control
-                type='date'
-                value={profileData.birthdate}
-                onChange={(e) => handleChange('birthdate', e.target.value)}
+                type='integer'
+                value={profileData.birthyear}
+                onChange={(e) => handleChange('birthyear', e.target.value)}
               />
             </Form.Group>
           </Col>
