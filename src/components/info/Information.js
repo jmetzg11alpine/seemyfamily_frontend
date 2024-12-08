@@ -10,10 +10,10 @@ const Information = () => {
     downLoadPhotos();
   };
   return (
-    <Container className='mt-2'>
+    <Container className='mt-2 px-4'>
       <div>
         All data is public and user generated. If you wish to contribute or have issues
-        reach out to the godfather or email the mainter at jmetzg11@gmail.com
+        reach out to the godfather or email the maintainer at jmetzg11@gmail.com
       </div>
       <div>
         <div className='mb-2'>You can download the database and photos</div>

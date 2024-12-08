@@ -8,10 +8,10 @@ const Info = () => {
   return (
     <StyledContainer>
       <StyledRow>
-        <Col xs={12} sm={6} className='r1-c1 p-0'>
+        <Col xs={12} sm={12} className='r1-c1 p-0'>
           <Edits />
         </Col>
-        <Col xs={12} sm={6} className='r1-c2'>
+        <Col xs={12} sm={12} className='r1-c2'>
           <Information />
         </Col>
       </StyledRow>
@@ -37,6 +37,6 @@ const StyledRow = styled(Row)`
   min-height: 50%;
 
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: stretch;
 `;
