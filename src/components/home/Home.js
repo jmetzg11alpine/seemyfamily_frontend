@@ -108,9 +108,9 @@ const Home = () => {
               Location{getSortIndicator('location__name', sortConfig)}
             </SortableTh>
             <SortableTh
-              onClick={() => requestSort('birthdate', sortConfig, setSortConfig)}
+              onClick={() => requestSort('birthyear', sortConfig, setSortConfig)}
             >
-              Birth Date{getSortIndicator('birthdate', sortConfig)}
+              Birth Date{getSortIndicator('birthyear', sortConfig)}
             </SortableTh>
             <SortableTh
               onClick={() => requestSort('birthplace', sortConfig, setSortConfig)}
@@ -136,7 +136,7 @@ const Home = () => {
                   {item.name}
                 </td>
                 <td>{item.location}</td>
-                <td>{item.birthdate}</td>
+                <td>{item.birthyear}</td>
                 <td>{item.birthplace}</td>
               </ClickableRow>
             ))
